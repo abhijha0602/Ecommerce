@@ -16,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
 @Entity
 @Table(name = "categories")
 public class Category extends AbstractEntity {

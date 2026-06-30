@@ -11,7 +11,8 @@ public class CategoryMapper {
         return Category.builder().name(request.getName()).description(request.getDescription()).deleted(false).build();
     }
 
-    public CategoryResponse toRequest(final Category entity){
+
+    public CategoryResponse toResponse(final Category entity){
         return CategoryResponse.builder().id(entity.getId()).name(entity.getName()).description(entity.getDescription()).build();
     }
 }
