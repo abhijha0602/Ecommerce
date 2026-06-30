@@ -40,9 +40,13 @@ public class AbstractEntity {
     @Column(name = "deleted", nullable = false)
     private Boolean deleted;
 
+    @PrePersist
     protected void onCreate(){
         if(this.deleted==null){
             this.deleted=false;
+        }
+        if(this.tenantId==null){
+            this.tenantId="default";
         }
     }
 
