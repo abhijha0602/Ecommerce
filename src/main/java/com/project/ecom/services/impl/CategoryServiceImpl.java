@@ -1,25 +1,35 @@
 package com.project.ecom.services.impl;
 
+import com.project.ecom.config.TenantContext;
 import com.project.ecom.entities.Category;
 import com.project.ecom.mappers.CategoryMapper;
 import com.project.ecom.repositories.CategoryRepository;
 import com.project.ecom.requests.CategoryRequest;
 import com.project.ecom.response.CategoryResponse;
 import com.project.ecom.services.CategoryService;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
+import org.springframework.data.annotation.Persistent;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
+//    @PersistenceContext
+//    private EntityManager entityManager;
 
     @Override
     public void create(CategoryRequest request) {
@@ -61,5 +71,25 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(String id) {
       final Category category=this.categoryRepository.findById(id).orElseThrow(()->new EntityNotFoundException("category not found"));
       this.categoryRepository.delete(category);
+    }
+
+    @Override
+    public List<CategoryResponse> findAll() {
+        return this.categoryRepository.findAll().stream().map(this.categoryMapper::toResponse).toList();
+
+//        String tenantId = TenantContext.getCurrentTenant();
+//        log.info("Tenant in service: {}", TenantContext.getCurrentTenant());
+//
+//        Session session = entityManager.unwrap(Session.class);
+//
+//        session.enableFilter("tenantFilter")
+//                .setParameter("tenantId", tenantId);
+//
+//        return this.categoryRepository.findAll()
+//                .stream()
+//                .map(this.categoryMapper::toResponse)
+//                .toList();
+
+
     }
 }

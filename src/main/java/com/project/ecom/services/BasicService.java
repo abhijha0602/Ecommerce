@@ -1,5 +1,7 @@
 package com.project.ecom.services;
 
+import java.util.List;
+
 public interface BasicService <I, O>{
     void create(final I request);
 
@@ -8,6 +10,8 @@ public interface BasicService <I, O>{
     O findById(final String id);
 
     void delete(final String id);
+
+    List<O> findAll();
 
 }
 

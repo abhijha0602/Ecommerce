@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
@@ -38,9 +40,12 @@ public class CategoryController {
     @GetMapping("/{category_id}")
     public ResponseEntity<CategoryResponse> getCategoryById(
             @PathVariable("category_id") final String id){
-
-       // return ResponseEntity.ok(this.service.findById(id));
         return ResponseEntity.ok(this.service.findById(id));
     }
 
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryResponse>> getAllCategory(){
+        return ResponseEntity.ok(this.service.findAll());
+    }
+    
 }
